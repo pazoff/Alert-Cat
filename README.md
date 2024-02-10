@@ -14,3 +14,8 @@ Just type:
 <b>!!start</b> - starts automatic notification for earthquakes. 
 
 <b>!!stop</b> - stops the automatic notifications.
+
+### You can get geo coordinates (latitude, longitude) for your region from https://www.seismicportal.eu
+
+<img width="80%" src="https://raw.githubusercontent.com/pazoff/Alert-Cat/main/alert-cat-settings.png">
+
