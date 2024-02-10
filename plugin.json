@@ -1,0 +1,9 @@
+{
+    "name": "Alert Cat",
+    "description": "Provides important alerts for disasters - Earthquakes. How to use it? Just type !!alert - view recent earthquakes, !!start - starts automatic notification for earthquakes, !!stop - stops the automatic notifications.",
+    "author_name": "Pazoff",
+    "tags": "alerts,disasters,earthquakes,notification",
+    "plugin_url": "https://github.com/pazoff/Alert-Cat",
+    "thumb": "",
+    "version": "0.0.1"
+}
