@@ -4,6 +4,6 @@
     "author_name": "Pazoff",
     "tags": "alerts,disasters,earthquakes,notification",
     "plugin_url": "https://github.com/pazoff/Alert-Cat",
-    "thumb": "",
+    "thumb": "https://raw.githubusercontent.com/pazoff/Alert-Cat/main/alert-cat-logo.jpg",
     "version": "0.0.1"
 }
