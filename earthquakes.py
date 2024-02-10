@@ -3,12 +3,22 @@ import time
 from datetime import datetime
 import threading
 
+
 def get_recent_earthquakes_emsc(min_magnitude, minlatitude=35, maxlatitude=48, minlongitude=22, maxlongitude=48):
-    url = f"https://www.seismicportal.eu/fdsnws/event/1/query?format=json&minmagnitude={min_magnitude}&orderby=time&limit=10&minlatitude={minlatitude}&maxlatitude={maxlatitude}&minlongitude={minlongitude}&maxlongitude={maxlongitude}"
-    response = requests.get(url)
-    data = response.json()
-    filtered_data = [quake for quake in data['features'] if quake['properties']['mag'] >= min_magnitude]
-    return filtered_data
+    try:
+        url = f"https://www.seismicportal.eu/fdsnws/event/1/query?format=json&minmagnitude={min_magnitude}&orderby=time&limit=10&minlatitude={minlatitude}&maxlatitude={maxlatitude}&minlongitude={minlongitude}&maxlongitude={maxlongitude}"
+        response = requests.get(url)
+        response.raise_for_status()  # Raises an exception for 4xx/5xx status codes
+        data = response.json()
+        filtered_data = [quake for quake in data['features'] if quake['properties']['mag'] >= min_magnitude]
+        return filtered_data
+    except requests.exceptions.RequestException as e:
+        print("Error fetching data:", e)
+        return None
+    except KeyError as e:
+        print("KeyError:", e)
+        return None
+
 
 def get_recent_earthquakes(min_magnitude, minlatitude=35, maxlatitude=48, minlongitude=22, maxlongitude=48):
     try:
