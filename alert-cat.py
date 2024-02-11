@@ -85,7 +85,7 @@ def agent_fast_reply(fast_reply, cat):
             if alert_thread is None or not alert_thread.is_alive(): 
                 alert_thread = threading.Thread(target=check_and_send_earthquakes, args=(cat, earthquake_min_magnitude, earthquake_check_interval_seconds), kwargs={'minlatitude': min_latitude, 'maxlatitude': max_latitude, 'minlongitude': min_longitude, 'maxlongitude': max_longitude})
                 alert_thread.start()
-                return {"output": "Earthquakes notifications <b>ON</b>"}
+                return {"output": f"Earthquakes notifications <b>ON</b><br>Checking for new earthquakes every {earthquake_check_interval_seconds} seconds."}
 
         if message.endswith('!!alert'):
             message = message[:-4]
