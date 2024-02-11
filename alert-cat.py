@@ -72,7 +72,7 @@ def agent_fast_reply(fast_reply, cat):
         if message.endswith('!!stop'):
             if alert_thread is not None and alert_thread.is_alive():
                 if stop_checking():
-                    return {"output": "Earthquakes notifications <b>turning OFF</b>"}
+                    return {"output": "Earthquakes notifications <b>OFF</b>"}
                 else:
                     return {"output": "Error stopping earthquakes notifications."}
             else:

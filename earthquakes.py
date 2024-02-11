@@ -100,7 +100,7 @@ def check_and_send_earthquakes(cat, min_magnitude, check_interval, minlatitude=3
 
     while not stop_flag.is_set():
         try:
-            print("Alert Cat: Checking for new earthquakes ...")
+            print("Alert Cat: CHECKING for new earthquakes ...")
             earthquakes = get_recent_earthquakes_emsc(min_magnitude, minlatitude=minlatitude, maxlatitude=maxlatitude, minlongitude=minlongitude, maxlongitude=maxlongitude)
             for quake in earthquakes:
                 time_epoch = datetime.strptime(quake['properties']['time'], "%Y-%m-%dT%H:%M:%S.%fZ").timestamp()
@@ -116,15 +116,16 @@ def check_and_send_earthquakes(cat, min_magnitude, check_interval, minlatitude=3
                     print(str(message))
                     
                     last_quake_time = time_epoch
-            print("Alert Cat: finished check for new earthquakes.")
+            print("Alert Cat: FINISHED check for new earthquakes.")
         except Exception as e:
             print("Error:", e)
         
-        time.sleep(check_interval)
+        #time.sleep(check_interval)
+        stop_flag.wait(check_interval)
 
     stop_flag.clear()
-    print("Alert Cat: Earthquakes notifications stopped.")
-    cat.send_ws_message(content='<b>Alert Cat: Earthquakes notifications stopped</b>', msg_type='chat')
+    print("Alert Cat: Earthquakes notifications STOPPED.")
+    #cat.send_ws_message(content='<b>Alert Cat: Earthquakes notifications stopped</b>', msg_type='chat')
 
 
 
