@@ -1,6 +1,6 @@
 from cat.mad_hatter.decorators import tool, hook, plugin
 from cat.log import log
-from .earthquakes import check_and_send_earthquakes, get_recent_earthquakes, format_earthquake_results, stop_checking
+from .earthquakes import check_and_send_earthquakes, get_recent_earthquakes, format_earthquake_results, stop_checking, draw_map
 import threading
 from pydantic import BaseModel
 
@@ -92,6 +92,8 @@ def agent_fast_reply(fast_reply, cat):
             recent_earthquakes = format_earthquake_results(get_recent_earthquakes(earthquake_min_magnitude, minlatitude=min_latitude, maxlatitude=max_latitude, minlongitude=min_longitude, maxlongitude=max_longitude))
             log.warning(str(recent_earthquakes))
             cat.send_ws_message(content=f'<b>Alert Cat: Recent Earthquakes Report. Magnitude above {earthquake_min_magnitude}</b>', msg_type='chat')
+            if draw_map(max_latitude, max_longitude, min_longitude, min_latitude):
+                cat.send_ws_message(content=f'You are getting report for earthquakes from <a href="/admin/assets/geo-location-map.html" target="_blank">this</a> region.<br>You can set your location coordinates in the plugin settings.', msg_type='chat')
             return {"output": str(recent_earthquakes)}
 
     return None

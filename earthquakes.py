@@ -2,6 +2,7 @@ import requests
 import time
 from datetime import datetime
 import threading
+import folium
 
 
 def get_recent_earthquakes_emsc(min_magnitude, minlatitude=35, maxlatitude=48, minlongitude=22, maxlongitude=48):
@@ -18,6 +19,28 @@ def get_recent_earthquakes_emsc(min_magnitude, minlatitude=35, maxlatitude=48, m
     except KeyError as e:
         print("KeyError:", e)
         return None
+
+
+def draw_map(maxlat, maxlon, minlon, minlat):
+    try:
+        # Calculate the center of the bounding box
+        center_lat = (maxlat + minlat) / 2
+        center_lon = (maxlon + minlon) / 2
+
+        # Create a Folium map centered at the calculated center
+        m = folium.Map(location=[center_lat, center_lon], zoom_start=5)
+
+        # Draw a rectangle overlay for the bounding box
+        folium.Rectangle(bounds=[[minlat, minlon], [maxlat, maxlon]], color='blue', fill=True, fill_color='blue', fill_opacity=0.2).add_to(m)
+
+        # Save the map as an HTML file
+        m.save('/admin/assets/geo-location-map.html')
+
+        return True
+    
+    except Exception as e:
+        print("An error occurred:", e)
+        return False
 
 
 def get_recent_earthquakes(min_magnitude, minlatitude=35, maxlatitude=48, minlongitude=22, maxlongitude=48):
