@@ -118,7 +118,7 @@ def check_and_send_earthquakes(cat, min_magnitude, check_interval, minlatitude=3
                     last_quake_time = time_epoch
             print("Alert Cat: FINISHED check for new earthquakes.")
         except Exception as e:
-            print("Error:", e)
+            print("Alert Cat: ERROR: ", e)
         
         #time.sleep(check_interval)
         stop_flag.wait(check_interval)
