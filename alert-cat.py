@@ -96,7 +96,7 @@ def agent_fast_reply(fast_reply, cat):
             cat.send_ws_message(content=f'<b>Alert Cat: Recent Earthquakes Report. Magnitude above {earthquake_min_magnitude}</b>', msg_type='chat')
             if draw_map(max_latitude, max_longitude, min_longitude, min_latitude):
                 cat.send_ws_message(content=f'You are getting report for earthquakes from <a href="/admin/assets/geo-location-map.html" target="_blank">this</a> region.<br>You can set your location coordinates in the plugin settings.', msg_type='chat')
-            more_info = "<br><br>You can get more info about disasters on <a href='https://www.gdacs.org/Alerts/' target='_blank'>this</a> website.<br><br>To start <b>Automatic Earthquakes Notifications</b>, type <b>!!start</b>"
+            more_info = "<br><br>You can get more info about disasters on <a href='https://www.gdacs.org/Alerts/' target='_blank'>this</a> website.<br><br>To start <b>Earthquakes Notifications</b>, type <b>!!start</b>"
             return {"output": str(recent_earthquakes) + more_info}
 
     return None
