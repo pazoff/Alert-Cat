@@ -72,7 +72,8 @@ def agent_fast_reply(fast_reply, cat):
         if message.endswith('!!stop'):
             if alert_thread is not None and alert_thread.is_alive():
                 if stop_checking():
-                    return {"output": "Earthquakes notifications <b>OFF</b>"}
+                    more_info = "<br><br>To start earthquakes notifications again, type <b>!!start</b>"
+                    return {"output": "Earthquakes notifications <b>OFF</b>" + more_info}
                 else:
                     return {"output": "Error stopping earthquakes notifications."}
             else:
@@ -85,7 +86,8 @@ def agent_fast_reply(fast_reply, cat):
             if alert_thread is None or not alert_thread.is_alive(): 
                 alert_thread = threading.Thread(target=check_and_send_earthquakes, args=(cat, earthquake_min_magnitude, earthquake_check_interval_seconds), kwargs={'minlatitude': min_latitude, 'maxlatitude': max_latitude, 'minlongitude': min_longitude, 'maxlongitude': max_longitude})
                 alert_thread.start()
-                return {"output": f"Earthquakes notifications <b>ON</b><br>Checking for new earthquakes every {earthquake_check_interval_seconds} seconds."}
+                more_info = "<br><br>To stop notifications, type <b>!!stop</b> in the chat."
+                return {"output": f"Earthquakes notifications <b>ON</b><br>Checking for new earthquakes every {earthquake_check_interval_seconds} seconds." + more_info}
 
         if message.endswith('!!alert'):
             message = message[:-4]
@@ -94,6 +96,7 @@ def agent_fast_reply(fast_reply, cat):
             cat.send_ws_message(content=f'<b>Alert Cat: Recent Earthquakes Report. Magnitude above {earthquake_min_magnitude}</b>', msg_type='chat')
             if draw_map(max_latitude, max_longitude, min_longitude, min_latitude):
                 cat.send_ws_message(content=f'You are getting report for earthquakes from <a href="/admin/assets/geo-location-map.html" target="_blank">this</a> region.<br>You can set your location coordinates in the plugin settings.', msg_type='chat')
-            return {"output": str(recent_earthquakes)}
+            more_info = "<br><br>You can get more info about disasters on <a href='https://www.gdacs.org/Alerts/' target='_blank'>this</a> website.<br><br>To start <b>Automatic Earthquakes Notifications</b>, type <b>!!start</b>"
+            return {"output": str(recent_earthquakes) + more_info}
 
     return None
